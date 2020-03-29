@@ -113,7 +113,7 @@ class MemeImpl implements IMeme {
     public firstPostedAt: Date;
 
 
-    // public popularity: number;
+    public popularity: number;
     // popularity missing - якщо будь-яке обов'язкове поле відсутнє, ми отримаємо помилку
     // creator field is optional in interface so ok
 }
@@ -143,7 +143,7 @@ class Parent {
 
 class Child extends Parent {
     public sorryForWhat?() {
-        this.mmm; // error,
+        // this.mmm; // error,
         this.goodAdvice; // ok; доступен ниже по иерархии
     }
 }
@@ -153,7 +153,7 @@ class Child extends Parent {
 const steve = new Child();
 
 steve.doYouLikeWhatYouSee; // доступний
-steve.mmm; // не доступний
-steve.goodAdvice; // не доступний
+// steve.mmm; // не доступний
+// steve.goodAdvice; // не доступний
 
 export { };

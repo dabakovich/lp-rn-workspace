@@ -4,18 +4,24 @@ const { sendMessageWithImprovedPromise, request } = require("./13-promises");
  * Генератори це функції, які можуть викликатись в кілька етапів. Фактично при виклику генератора, генерується об'єкт, з допомогою якого ми можемо зрозуміти статус виконання функції, і рухатись далі, якщо функція-генератор ще не завершилась
 */
 
+
+
+
+
+
+
 function* count() {
     yield 1;
     yield 2;
     yield 3;
-    return 4;
+    yield 4;
 }
 
 const counter = count();
 
-console.log(counter);
+// console.log(counter);
 
-console.log(counter.next()); // { done: false, value: 1 }
+// console.log(counter.next()); // { done: false, value: 1 }
 // console.log(counter.next()); // { done: false, value: 2 }
 // console.log(counter.next()); // { done: false, value: 3 }
 // console.log(counter.next()); // { done: false, value: 4 }
@@ -31,9 +37,9 @@ function* anotherGenerator() {
 }
 
 // of приймає щось iterable, як в нашому випадку
-for (let i of anotherGenerator()) {
-    console.log(i);
-}
+// for (let i of anotherGenerator()) {
+//     console.log(i);
+// }
 // Виведе 1 - 4
 
 
@@ -65,19 +71,72 @@ const run = async () => {
 
 
 
+
+function* gen() {
+    // Передаємо запитання у зовнішній код, і чекаємо відповідь
+    let result = yield "Some async operation";
+    console.log('In generator')
+    console.log(result);
+
+
+    // result = yield "Some another async operation";
+    // console.log('In generator')
+    // console.log(result);
+}
+
+// let generator = gen();
+
+// let question = generator.next().value;
+// console.log(question);
+
+// setTimeout(() => generator.next(4), 2000);
+
+
+
+
+
+function* genWithPromise() {
+    // Передаємо проміс у зовнішній код, і чекаємо відповідь
+    let result = yield new Promise((resolve) => {
+        setTimeout(() => resolve('Response from server'), 2000)
+    });
+    console.log('In generator')
+    console.log(result);
+}
+
+// let generatorWithPromise = genWithPromise();
+
+// let question = generatorWithPromise.next().value;
+// console.log(question);
+
+// question.then((response) => generatorWithPromise.next(response));
+
+
+
+
+
+
+
+
 function* sendFewMessages() {
-    let response;
-    response = yield sendMessageWithImprovedPromise('First message');
-    console.log(response);
+    try {
+        let response;
+        response = yield sendMessageWithImprovedPromise('First message');
+        console.log(response);
 
-    response = yield sendMessageWithImprovedPromise('Second message');
-    console.log(response);
+        response = yield sendMessageWithImprovedPromise('Second message');
+        console.log(response);
 
-    response = yield sendMessageWithImprovedPromise('Third message');
-    console.log(response);
+        response = yield sendMessageWithImprovedPromise('Third message');
+        console.log(response);
 
-    return 'Successfully sent all messages';
+        return 'Successfully sent all messages';
+    } catch (e) {
+        // ...
+    }
 };
+
+
 
 function execute(generator, yieldValue) {
 
@@ -96,4 +155,4 @@ function execute(generator, yieldValue) {
 
 }
 
-// execute(sendFewMessages());
+execute(sendFewMessages());

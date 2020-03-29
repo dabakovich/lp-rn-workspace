@@ -2,9 +2,9 @@
  * Основне, що нам потрібно від typescript - можливість оголошувати типи змінних, полей, аргументів, значень, які повертаються з функцій і методів. Для цієї ціді ми маємо анотації типів.
 */
 
-// let word: string;
+let word: string;
 
-// word = '123';
+word = "123";
 
 // word = 123;
 
@@ -30,7 +30,7 @@
  * any
  * unknown
  * never
- * nul
+ * null
  * undefined
  * []
  */
@@ -64,7 +64,7 @@ const doSomethingArrow = (arg: string, arg1: number): number => {
 // console.log(doSomething({}, 2));
 
 
-// const result = doSomething("123", 2);
+const result = doSomething("123", 2);
 // console.log(result);
 
 
@@ -92,9 +92,9 @@ class Pepe {
     };
 }
 
-const pepe = new Pepe();
+// const pepe = new Pepe();
 
-pepe.reeeeee();
+// pepe.reeeeee();
 
 
 
